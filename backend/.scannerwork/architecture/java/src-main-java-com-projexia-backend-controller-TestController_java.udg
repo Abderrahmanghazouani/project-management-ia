@@ -1,0 +1,140 @@
+
+1.0abderrahmanghazouani_test-sonarJavaFrontend"1777545036132*java2.B™
+F
+Asrc/main/java/com/projexia/backend/controller/TestController.java2
+	
+type3
+	
+MAIN4
+
+package6
+$
+com.projexia.backend.controller7
+3
+.com.projexia.backend.controller.TestController9
+
+class10
+
+access11
+
+public12
+
+
+full-range13
+
+(9:1)-(17:2)14
+
+simple-name15
+
+TestController16
+
+RestController18
+
+unknown19
+
+annotated by20
+,
+&Recovered#typeBindingLRestController;022
+
+
+uses23
+
+CrossOrigin25
+)
+#Recovered#typeBindingLCrossOrigin;027
+M
+Gcom.projexia.backend.controller.TestController#test()Ljava/lang/String;29
+
+method30
+
+(13:5)-(16:6)31
+
+
+test32
+
+
+GetMapping34
+(
+"Recovered#typeBindingLGetMapping;036J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768jê
+M
+28G
+282930 *
+1 (28:5B$
+
+
+11
+12
+
+
+13
+31
+
+
+15
+32
+
+24
+242519
+
+33
+333419
+
+21
+212219
+
+17
+171819
+
+26
+262719
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+
+35
+353619rû
+
+81720*
+1	 	(
+
+82123*
+1	 	(
+
+82420*
+1
+ 
+(0
+
+82623*
+1
+ 
+(
+
+283320*
+1 (
+
+283523*
+1 (

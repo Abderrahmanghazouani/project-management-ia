@@ -1,0 +1,7 @@
+organization=abderrahmanghazouani
+projectKey=abderrahmanghazouani_test-sonar
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.86436
+dashboardUrl=https://sonarcloud.io/dashboard?id=abderrahmanghazouani_test-sonar
+ceTaskId=AZ3d8RJfrAfbvnvfq4Ka
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZ3d8RJfrAfbvnvfq4Ka
