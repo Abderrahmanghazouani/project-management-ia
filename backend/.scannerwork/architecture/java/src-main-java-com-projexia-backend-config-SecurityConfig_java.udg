@@ -1,0 +1,156 @@
+
+1.0abderrahmanghazouani_test-sonarJavaFrontend"1777545034742*java2.BÙ
+B
+=src/main/java/com/projexia/backend/config/SecurityConfig.java2
+	
+type3
+	
+MAIN4
+
+package6
+ 
+com.projexia.backend.config7
+/
+*com.projexia.backend.config.SecurityConfig9
+
+class10
+
+access11
+
+public12
+
+
+full-range13
+
+(10:1)-(25:2)14
+
+simple-name15
+
+SecurityConfig16
+
+Configuration18
+
+unknown19
+
+annotated by20
++
+%Recovered#typeBindingLConfiguration;022
+
+
+uses23
+i
+ccom.projexia.backend.config.SecurityConfig#securityFilterChain(LHttpSecurity;)LSecurityFilterChain;25
+
+method26
+
+(13:5)-(24:6)27
+
+securityFilterChain28
+
+SecurityFilterChain30
+
+returns31
+*
+$Recovered#typeBindingLHttpSecurity;033
+
+	has param34
+
+
+Bean36
+"
+Recovered#typeBindingLBean;038
+
+is type39J
+
+1
+12
+
+
+3
+4 Z
+
+5
+5768jê
+
+29
+293019
+
+17
+171819
+
+37
+373819
+G
+8B
+8910 *
+1 (:5B$
+
+
+11
+12
+
+
+13
+14
+
+
+15
+16
+M
+24G
+242526 *
+1  (328:5B$
+
+
+11
+12
+
+
+13
+27
+
+
+15
+28
+
+21
+212219
+
+32
+323319
+
+35
+353619rÒ
+
+81720*
+1
+ 
+(
+
+82123*
+1
+ 
+(
+
+242931*
+1 (
+
+243234*
+14 (@
+
+243520*
+1 (
+
+
+243723*
+1 (
+
+
+242923*
+1 (
+
+243239*
+1A (E
+
+243223*
+14 (@
