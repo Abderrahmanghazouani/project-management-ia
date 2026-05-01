@@ -1,20 +1,27 @@
-"use client";
+import Navbar from "./components/Navbar";
+import HeroCTA from "./components/HeroCTA";
+import HeroSection from "./components/HeroSection";
+import RolesSection from "./components/RolesSection";
+import FeaturesSection from "./components/FeaturesSection";
+import ModulesShowcase from "./components/ModulesShowcases";
+import AIProcessSection from "./components/AIProcessSection";
+import TechStackSection from "./components/TechStackSection";
+import TestimonialsSection from "./components/TestimonialsSection";
+import { Footer } from "./components/CTAAndFooter";
 
-import { useEffect, useState } from "react";
-
-export default function Home() {
-  const [message, setMessage] = useState("Chargement...");
-
-  useEffect(() => {
-    fetch("http://localhost:8080/api/test")
-      .then((res) => res.text())
-      .then((data) => setMessage(data))
-      .catch(() => setMessage("Erreur connexion backend"));
-  }, []);
-
+export default function HomePage() {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <h1 className="text-2xl font-bold text-blue-600">{message}</h1>
-    </div>
+    <main>
+      <Navbar />
+      <HeroCTA />
+      <HeroSection />
+      <RolesSection />
+      <FeaturesSection />
+      <AIProcessSection />
+      <ModulesShowcase />
+      <TechStackSection />
+      <TestimonialsSection />
+      <Footer />
+    </main>
   );
 }
