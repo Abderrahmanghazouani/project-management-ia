@@ -9,7 +9,7 @@ export default function Navbar() {
   const { t } = useLanguage();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -21,131 +21,305 @@ export default function Navbar() {
           position: fixed;
           top: 0; left: 0; right: 0;
           z-index: 100;
-          height: 64px;
+          height: 80px;
           display: flex;
           align-items: center;
           justify-content: space-between;
           padding: 0 40px;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Default state - transparent on dark hero */
+        .navbar .nav-logo,
+        .navbar .nav-link,
+        .navbar .btn-nav-ghost {
+          color: rgba(255,255,255,0.9);
+        }
+        
+        .navbar .nav-center {
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .navbar .nav-link:hover {
+          color: var(--white);
+          background: rgba(255,255,255,0.1);
+        }
+        
+        .navbar .nav-link.active {
+          color: var(--white);
+          background: rgba(255,255,255,0.15);
+        }
+        
+        .navbar .status-indicator {
+          background: rgba(34,197,94,0.15);
+          border-color: rgba(34,197,94,0.3);
+          color: var(--green-light);
+        }
+        
+        .navbar .btn-nav-primary {
+          background: var(--green);
+          box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+        }
+        
+        .navbar .menu-icon,
+        .navbar .menu-icon::before,
+        .navbar .menu-icon::after {
+          background: var(--white);
+        }
+        
+        /* Scrolled state - white background */
         .navbar.scrolled {
-          background: rgba(255,255,255,0.92);
+          background: rgba(255,255,255,0.95);
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid var(--gray-100);
-          box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+          border-bottom: 1px solid var(--border);
+          box-shadow: var(--shadow-md);
+          height: 72px;
         }
+        
+        .navbar.scrolled .nav-logo,
+        .navbar.scrolled .btn-nav-ghost {
+          color: var(--foreground);
+        }
+        
+        .navbar.scrolled .nav-center {
+          background: var(--muted);
+          border-color: transparent;
+        }
+        
+        .navbar.scrolled .nav-link {
+          color: var(--muted-foreground);
+        }
+        
+        .navbar.scrolled .nav-link:hover {
+          color: var(--foreground);
+          background: var(--white);
+          box-shadow: var(--shadow-sm);
+        }
+        
+        .navbar.scrolled .nav-link.active {
+          color: var(--foreground);
+          background: var(--white);
+          box-shadow: var(--shadow-sm);
+        }
+        
+        .navbar.scrolled .status-indicator {
+          background: var(--primary-pale);
+          border-color: var(--primary-muted);
+          color: var(--primary);
+        }
+        
+        .navbar.scrolled .btn-nav-primary {
+          background: var(--foreground);
+          box-shadow: none;
+        }
+        
+        .navbar.scrolled .btn-nav-primary:hover {
+          background: var(--gray-800);
+        }
+        
+        .navbar.scrolled .menu-icon,
+        .navbar.scrolled .menu-icon::before,
+        .navbar.scrolled .menu-icon::after {
+          background: var(--foreground);
+        }
+        
+        .nav-inner {
+          max-width: 1320px;
+          width: 100%;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        
         .nav-logo {
           display: flex;
           align-items: center;
-          gap: 10px;
-          font-family: var(--font-display);
-          font-size: 20px;
-          color: var(--black);
-          letter-spacing: -0.3px;
+          gap: 12px;
+          font-family: var(--font-sans);
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: -0.5px;
+          transition: color 0.3s ease;
         }
+        
         .nav-logo-mark {
-          width: 32px; height: 32px;
-          background: var(--black);
-          border-radius: 8px;
-          display: flex; align-items: center; justify-content: center;
+          width: 40px; 
+          height: 40px;
+          background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
+          border-radius: var(--radius-lg);
+          display: flex; 
+          align-items: center; 
+          justify-content: center;
           color: var(--white);
-          font-size: 16px;
+          font-size: 18px;
           font-family: var(--font-mono);
-          font-weight: 500;
-          flex-shrink: 0;
+          font-weight: 700;
+          box-shadow: 0 4px 16px rgba(34,197,94,0.3);
         }
-        .nav-links {
+        
+        .nav-center {
           display: flex;
           align-items: center;
-          gap: 8px;
-          list-style: none;
+          gap: 4px;
+          padding: 5px;
+          border-radius: var(--radius-full);
+          transition: all 0.3s ease;
         }
-        .nav-links a {
+        
+        .nav-link {
           font-size: 14px;
           font-weight: 500;
-          color: var(--gray-600);
-          padding: 6px 14px;
-          border-radius: var(--radius-sm);
-          transition: all 0.15s;
+          padding: 10px 18px;
+          border-radius: var(--radius-full);
+          transition: all 0.2s ease;
+          border: none;
+          background: transparent;
+          cursor: pointer;
         }
-        .nav-links a:hover {
-          color: var(--black);
-          background: var(--gray-100);
-        }
+        
         .nav-actions {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
         }
+        
+        .status-indicator {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border: 1px solid;
+          border-radius: var(--radius-full);
+          font-size: 12px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+        
+        .status-dot {
+          width: 8px; 
+          height: 8px;
+          border-radius: 50%;
+          background: currentColor;
+          animation: pulse-green 2s ease-in-out infinite;
+        }
+        
         .btn-nav-ghost {
           font-size: 14px;
           font-weight: 500;
-          color: var(--gray-700);
-          background: none;
-          border: 1px solid var(--gray-200);
-          border-radius: var(--radius-sm);
-          padding: 7px 18px;
-          transition: all 0.15s;
+          background: transparent;
+          border: none;
+          padding: 10px 18px;
+          border-radius: var(--radius-md);
+          transition: all 0.2s ease;
+          cursor: pointer;
         }
+        
         .btn-nav-ghost:hover {
-          border-color: var(--gray-400);
-          color: var(--black);
+          background: rgba(255,255,255,0.1);
         }
+        
+        .navbar.scrolled .btn-nav-ghost:hover {
+          background: var(--muted);
+        }
+        
         .btn-nav-primary {
           font-size: 14px;
           font-weight: 600;
           color: var(--white);
-          background: var(--black);
           border: none;
-          border-radius: var(--radius-sm);
-          padding: 8px 18px;
-          transition: all 0.2s;
+          border-radius: var(--radius-lg);
+          padding: 12px 24px;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 8px;
+          cursor: pointer;
         }
+        
         .btn-nav-primary:hover {
-          background: var(--gray-800);
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          transform: translateY(-2px);
         }
-        .status-dot {
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: var(--green-light);
-          animation: pulse-green 2s infinite;
-          flex-shrink: 0;
+
+        /* Mobile menu button */
+        .menu-toggle {
+          display: none;
+          background: none;
+          border: none;
+          padding: 8px;
+          cursor: pointer;
+        }
+        
+        .menu-icon {
+          width: 24px;
+          height: 2px;
+          position: relative;
+          transition: all 0.3s ease;
+        }
+        
+        .menu-icon::before,
+        .menu-icon::after {
+          content: '';
+          position: absolute;
+          width: 24px;
+          height: 2px;
+          transition: all 0.3s ease;
+        }
+        
+        .menu-icon::before { top: -7px; }
+        .menu-icon::after { bottom: -7px; }
+
+        @media (max-width: 1024px) {
+          .nav-center { display: none; }
+          .status-indicator { display: none; }
+        }
+        
+        @media (max-width: 768px) {
+          .navbar { padding: 0 20px; }
+          .menu-toggle { display: block; }
+          .nav-actions > *:not(.menu-toggle) { display: none; }
         }
       `}</style>
 
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-        {/* Logo */}
-        <a href="/" className="nav-logo">
-          <div className="nav-logo-mark">P</div>
-          Proj<em>AI</em>
-        </a>
+        <div className="nav-inner">
+          {/* Logo */}
+          <a href="/" className="nav-logo">
+            <div className="nav-logo-mark">P</div>
+            <span>Proj<span style={{ color: 'var(--primary)' }}>AI</span></span>
+          </a>
 
-        {/* Links */}
-        <ul className="nav-links">
-          {[t.nav.features, t.nav.workflow, t.nav.modules, t.nav.docs].map(link => (
-            <li key={link}>
-              <a href="#">{link}</a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Actions */}
-        <div className="nav-actions">
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, color: "var(--gray-500)", marginRight: "8px" }}>
-            <div className="status-dot" />
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>{t.nav.status}</span>
+          {/* Center Nav Links */}
+          <div className="nav-center">
+            {[t.nav.features, t.nav.workflow, t.nav.modules, t.nav.docs].map((link, index) => (
+              <button 
+                key={link} 
+                className={`nav-link ${index === 0 ? 'active' : ''}`}
+              >
+                {link}
+              </button>
+            ))}
           </div>
-          <LanguageToggle />
-          <button className="btn-nav-ghost">{t.nav.login}</button>
-          <button className="btn-nav-primary">
-            {t.nav.start}
-          </button>
+
+          {/* Actions */}
+          <div className="nav-actions">
+            <div className="status-indicator">
+              <div className="status-dot" />
+              <span>{t.nav.status}</span>
+            </div>
+            <LanguageToggle />
+            <a href="/auth" className="btn-nav-ghost" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+              {t.nav.login}
+            </a>
+            <button className="btn-nav-primary">
+              {t.nav.start}
+            </button>
+            <button className="menu-toggle">
+              <div className="menu-icon" />
+            </button>
+          </div>
         </div>
       </nav>
     </>
