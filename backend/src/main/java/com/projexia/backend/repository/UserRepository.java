@@ -23,6 +23,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByMatricule(String matricule);
+
     boolean existsByEmail(String email);
 
     Page<User> findByRole(Role role, Pageable pageable);

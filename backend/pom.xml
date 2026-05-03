@@ -29,11 +29,27 @@
         <resilience4j.version>2.2.0</resilience4j.version>
         <jacoco.version>0.8.11</jacoco.version>
         <selenium.version>4.18.1</selenium.version>
+        <sonar.projectKey>Projexia-Backend</sonar.projectKey>
+        <sonar.projectName>Projexia Backend</sonar.projectName>
         <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.projectKey>projexia-backend</sonar.projectKey>
         <sonar.coverage.jacoco.xmlReportPaths>
-            target/site/jacoco/jacoco.xml
+            ${project.basedir}/target/site/jacoco/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.exclusions>
+            **/config/**,
+            **/model/**,
+            **/dto/**,
+            **/BackendApplication.java,
+            **/TestController.java
+        </sonar.exclusions>
+
+        <sonar.coverage.exclusions>
+            **/config/**,
+            **/model/**,
+            **/dto/**,
+            **/BackendApplication.java,
+            **/TestController.java
+        </sonar.coverage.exclusions>
     </properties>
 
     <dependencies>
