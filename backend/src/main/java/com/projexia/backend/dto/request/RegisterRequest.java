@@ -16,7 +16,6 @@ import lombok.*;
  * Ces annotations sont vérifiées automatiquement
  * par Spring grâce à @Valid dans le controller
  */
-
 @Getter
 @Setter
 @NoArgsConstructor
