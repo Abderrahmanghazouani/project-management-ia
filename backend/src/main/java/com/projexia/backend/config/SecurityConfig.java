@@ -35,6 +35,9 @@ public class SecurityConfig {
     // ✅ Injecter via l'interface UserDetailsService
     // Spring trouvera automatiquement UserDetailsServiceImpl
     // car elle implémente cette interface
+
+
+
     private final UserDetailsService userDetailsService;
 
     private static final String[] PUBLIC_URLS = {
