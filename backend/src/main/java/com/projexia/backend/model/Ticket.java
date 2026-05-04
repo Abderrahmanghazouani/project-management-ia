@@ -55,6 +55,13 @@ public class Ticket {
     @JoinColumn(name = "matricule_assigne")
     private User assigne;
 
+
+    // ─── Ajout M7 : relation avec Sprint ─────────────────────────────────────
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ref_sprint")
+    private Sprint sprint;
+    // ─── Ajout M7 : relation avec Sprint ─────────────────────────────────────
+
     @PrePersist
     protected void onCreate() {
         this.dateCreation = LocalDateTime.now();
