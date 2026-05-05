@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
   const { t } = useLanguage();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -15,6 +17,7 @@ export default function LoginForm() {
     // TODO: POST /api/auth/login (Spring Boot backend)
     await new Promise(r => setTimeout(r, 1500));
     setLoading(false);
+    router.push('/dashboard');
   };
 
   return (

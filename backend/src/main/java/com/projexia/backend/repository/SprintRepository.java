@@ -20,4 +20,5 @@ public interface SprintRepository extends JpaRepository<Sprint, String> {
     Page<Sprint> findByProjetRefProjet(String refProjet, Pageable pageable);
 
     boolean existsByNomAndProjetRefProjet(String nom, String refProjet);
+    long countByStatut(StatutSprint statut);
 }
