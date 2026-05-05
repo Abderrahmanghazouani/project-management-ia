@@ -1,13 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LanguageToggle from './LanguageToggle';
 import { useLanguage } from '../i18n/LanguageContext';
 
-export default function Navbar() {
+export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -284,7 +286,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <nav className={`navbar ${scrolled || solid ? "scrolled" : ""}`}>
         <div className="nav-inner">
           {/* Logo */}
           <Link href="/" className="nav-logo">
@@ -294,13 +296,20 @@ export default function Navbar() {
 
           {/* Center Nav Links */}
           <div className="nav-center">
-            {[t.nav.features, t.nav.workflow, t.nav.modules, t.nav.docs].map((link, index) => (
-              <button 
-                key={link} 
-                className={`nav-link ${index === 0 ? 'active' : ''}`}
+            {[
+              { label: t.nav.features, href: "/#features" },
+              { label: t.nav.workflow, href: "/workflow-ia" },
+              { label: t.nav.modules, href: "/modules" },
+              { label: t.nav.docs, href: "/documentation" }
+            ].map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href}
+                className={`nav-link ${pathname === link.href ? 'active' : ''}`}
+                style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
               >
-                {link}
-              </button>
+                {link.label}
+              </Link>
             ))}
           </div>
 
