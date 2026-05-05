@@ -52,10 +52,12 @@ public class Project {
     @Column(name = "date_fin", nullable = false)
     private LocalDate dateFin;
 
+    @Builder.Default
     @Column(name = "budget_prevu",
             precision = 15, scale = 2)
     private BigDecimal budgetPrevu = BigDecimal.ZERO;
 
+    @Builder.Default
     @Column(name = "budget_reel",
             precision = 15, scale = 2)
     private BigDecimal budgetReel = BigDecimal.ZERO;
