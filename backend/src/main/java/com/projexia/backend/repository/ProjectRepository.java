@@ -52,4 +52,6 @@ public interface ProjectRepository
             StatutProjet statut,
             String matricule,
             Pageable pageable);
+
+    long countByStatut(StatutProjet statut);
 }

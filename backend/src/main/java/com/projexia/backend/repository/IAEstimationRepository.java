@@ -1,7 +1,5 @@
 package com.projexia.backend.repository;
 
-
-
 import com.projexia.backend.model.IAEstimation;
 import com.projexia.backend.model.StatutEstimation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +33,6 @@ public interface IAEstimationRepository
     findByProjetRefProjetAndStatut(
             String refProjet,
             StatutEstimation statut);
+
+    long countByStatut(StatutEstimation statut);
 }
