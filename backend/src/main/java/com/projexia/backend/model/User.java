@@ -61,6 +61,7 @@ public class User implements UserDetails {
     @Column(name = "date_creation")
     private LocalDateTime dateCreation;
 
+    @Builder.Default
     @Column(name = "actif")
     private Boolean actif = true;
 
