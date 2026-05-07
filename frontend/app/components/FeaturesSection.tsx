@@ -1,72 +1,6 @@
 "use client";
 import { useLanguage } from '../i18n/LanguageContext';
 
-const features = [
-  {
-    number: "01",
-    tag: "Assistant IA",
-    title: "Analyse automatique du CDC",
-    desc: "Collez votre cahier des charges. Gemini extrait taches, durees estimees, complexite et risques en moins de 30 secondes.",
-    stat: "< 30s",
-    statLabel: "d'analyse",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      </svg>
-    ),
-    highlight: true,
-    items: ["Extraction automatique des taches", "Estimation jours/complexite", "Detection des risques projet", "Fallback manuel si API indisponible"],
-  },
-  {
-    number: "02",
-    tag: "Board Kanban",
-    title: "Visualisation sprint en temps reel",
-    desc: "Board Kanban simple et efficace - To Do, In Progress, Done. Avancez vos tickets d'une colonne en un clic.",
-    stat: "3",
-    statLabel: "colonnes",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/>
-      </svg>
-    ),
-    items: ["Affichage par sprint actif", "Changement de statut instantane", "Filtres par assigne et type", "Priorites visuelles"],
-  },
-  {
-    number: "03",
-    tag: "Equipe & Ressources",
-    title: "Distribution automatique des taches",
-    desc: "Apres validation IA, selectionnez vos membres. La plateforme repartit equitablement les taches selon la charge estimee.",
-    stat: "Infini",
-    statLabel: "membres",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    ),
-    items: ["Repartition equilibree", "Selection ou saisie libre", "Vue charge par developpeur", "Reassignation manuelle"],
-  },
-  {
-    number: "04",
-    tag: "Risques & Couts",
-    title: "Suivi budgetaire et registre des risques",
-    desc: "Criticite calculee automatiquement (probabilite x impact), registre trie, budget prevu vs reel avec ecart visible.",
-    stat: "0",
-    statLabel: "surprises",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-        <line x1="12" y1="9" x2="12" y2="13"/>
-        <line x1="12" y1="17" x2="12.01" y2="17"/>
-      </svg>
-    ),
-    items: ["Criticite = probabilite x impact", "Registre trie par criticite", "Budget prevu / reel / ecart", "Plans de mitigation"],
-  },
-];
 
 export default function FeaturesSection() {
   const { t } = useLanguage();
@@ -349,46 +283,78 @@ export default function FeaturesSection() {
           </div>
 
           <div className="features-bento">
-            {features.map((f) => (
-              <div key={f.number} className={`feature-card ${f.highlight ? "highlighted" : ""}`}>
-                <div className="feature-header">
-                  <div className="feature-icon-wrap">
-                    {f.icon}
+            {t.features.list.map((f, idx) => {
+              const icons = [
+                (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                  </svg>
+                ),
+                (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                  </svg>
+                ),
+                (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                  </svg>
+                ),
+                (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                  </svg>
+                )
+              ];
+              const highlight = idx === 0;
+              return (
+                <div key={idx} className={`feature-card ${highlight ? "highlighted" : ""}`}>
+                  <div className="feature-header">
+                    <div className="feature-icon-wrap">
+                      {icons[idx]}
+                    </div>
+                    <div className="feature-number">0{idx + 1}</div>
                   </div>
-                  <div className="feature-number">{f.number}</div>
-                </div>
-                
-                <div className="feature-tag">{f.tag}</div>
-                <h3 className="feature-title">{f.title}</h3>
-                <p className="feature-desc">{f.desc}</p>
-                
-                <ul className="feature-items">
-                  {f.items.map(item => (
-                    <li key={item} className="feature-item">
-                      <div className="feature-item-check">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M2 6l3 3 5-6"/>
-                        </svg>
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="feature-footer">
-                  <div className="feature-stat">
-                    <div className="feature-stat-val">{f.stat}</div>
-                    <div className="feature-stat-lbl">{f.statLabel}</div>
+                  
+                  <div className="feature-tag">{f.tag}</div>
+                  <h3 className="feature-title">{f.title}</h3>
+                  <p className="feature-desc">{f.desc}</p>
+                  
+                  <ul className="feature-items">
+                    {f.items.map(item => (
+                      <li key={item} className="feature-item">
+                        <div className="feature-item-check">
+                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M2 6l3 3 5-6"/>
+                          </svg>
+                        </div>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="feature-footer">
+                    <div className="feature-stat">
+                      <div className="feature-stat-val">{f.stat}</div>
+                      <div className="feature-stat-lbl">{f.statLabel}</div>
+                    </div>
+                    <a href="#" className="feature-link">
+                      {t.features.more} 
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M3 8h10M9 4l4 4-4 4"/>
+                      </svg>
+                    </a>
                   </div>
-                  <a href="#" className="feature-link">
-                    En savoir plus 
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M3 8h10M9 4l4 4-4 4"/>
-                    </svg>
-                  </a>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

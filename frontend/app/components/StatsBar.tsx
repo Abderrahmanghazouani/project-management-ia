@@ -144,7 +144,7 @@ export default function StatsBar() {
       {/* Trusted By */}
       <section className="trusted-section">
         <div className="trusted-inner">
-          <div className="trusted-label">Trusted by teams at</div>
+          <div className="trusted-label">{t.stats.trustedBy}</div>
           <div className="trusted-logos">
             {trustedLogos.map(logo => (
               <div key={logo.name} className="logo-item">
@@ -159,7 +159,7 @@ export default function StatsBar() {
       {/* Stats */}
       <section className="stats-section">
         <div className="stats-inner">
-          {stats.map((s, i) => (
+          {t.stats.data.map((s, i) => (
             <div 
               key={s.label} 
               className="stat-item animate-fade-up" 

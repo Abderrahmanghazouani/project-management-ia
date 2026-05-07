@@ -4,34 +4,23 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import { Footer, CTASection } from "../components/CTAAndFooter";
-
-const modulesData = [
-  { id: "M1", sprint: "S1", priority: "Haute", icon: "🔐", title: "Authentification & Rôles", desc: "Gestion sécurisée des accès et des permissions utilisateurs.", features: ["JWT 24h", "BCrypt 10 rounds", "RBAC", "4 rôles", "Interface admin"] },
-  { id: "M2", sprint: "S1", priority: "Haute", icon: "📁", title: "Gestion des Projets", desc: "Centralisation de tous vos projets avec suivi d'état en temps réel.", features: ["CRUD complet", "Statuts Dynamiques", "Filtres avancés", "Validation backend"] },
-  { id: "M3", sprint: "S2", priority: "Haute", icon: "🤖", title: "Assistant IA (Gemini)", desc: "Intelligence artificielle pour la génération automatique de backlogs.", features: ["API Gemini 1.5", "Génération JSON", "Estimation durées", "Versionnage estimations"] },
-  { id: "M4", sprint: "S2", priority: "Haute", icon: "👥", title: "Gestion d'Équipe", desc: "Optimisation de la collaboration et de la répartition des tâches.", features: ["Ajout membres", "Rôles projet", "Distribution auto", "Ajustement manuel"] },
-  { id: "M5", sprint: "S2", priority: "Haute", icon: "📋", title: "Backlog & Tickets", desc: "Organisation granulaire des besoins fonctionnels et techniques.", features: ["Types diversifiés", "Priorisation", "Assignation", "Points d'effort"] },
-  { id: "M6", sprint: "S2", priority: "Haute", icon: "📊", title: "Board Kanban", desc: "Visualisation fluide du workflow de développement.", features: ["Drag & Drop", "Filtres visuels", "Statuts temps réel", "Indicateurs priorité"] },
-  { id: "M7", sprint: "S3", priority: "Moyenne", icon: "🗓️", title: "Sprints & Planning", desc: "Planification itérative pour un respect rigoureux des délais.", features: ["Création sprint", "Affectation tickets", "Board sprint", "Suivi avancement"] },
-  { id: "M8", sprint: "S3", priority: "Moyenne", icon: "⚖️", title: "Ressources & Allocation", desc: "Équilibrage de la charge de travail entre les membres.", features: ["Charge par membre", "Compteur In Progress", "Rôles spécifiques", "Optimisation flux"] },
-  { id: "M9", sprint: "S3", priority: "Moyenne", icon: "💰", title: "Suivi des Coûts", desc: "Contrôle budgétaire précis pour chaque phase du projet.", features: ["Budget prévu/réel", "Écart automatique", "Graphiques évolution", "Alertes dépassement"] },
-  { id: "M10", sprint: "S3", priority: "Moyenne", icon: "📦", title: "Livrables", desc: "Gestion des sorties et validation des jalons critiques.", features: ["Gestion fichiers", "Suivi statut", "Dates limites", "Historique versions"] },
-  { id: "M11", sprint: "S4", priority: "Moyenne", icon: "⚠️", title: "Registre des Risques", desc: "Identification et mitigation proactive des menaces projet.", features: ["Calcul criticité", "Plan mitigation", "Codes couleur", "Suivi dynamique"] },
-  { id: "M12", sprint: "S4", priority: "Basse", icon: "⚙️", title: "Administration", desc: "Outils de configuration globale pour les super-utilisateurs.", features: ["Logs audit", "Paramètres système", "Modif rôles globaux", "Maintenance DB"] },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function ModulesPage() {
+  const { t, locale } = useLanguage();
   const [filter, setFilter] = useState("Tous");
+
+  const modulesData = t.modulesPage.modules;
 
   const filteredModules = filter === "Tous" 
     ? modulesData 
-    : modulesData.filter(m => m.priority === filter);
+    : modulesData.filter(m => m.priority === filter || (filter === "Haute" && m.priority === "High") || (filter === "Moyenne" && m.priority === "Medium") || (filter === "Basse" && m.priority === "Low"));
 
   const stats = {
     total: modulesData.length,
-    haute: modulesData.filter(m => m.priority === "Haute").length,
-    moyenne: modulesData.filter(m => m.priority === "Moyenne").length,
-    basse: modulesData.filter(m => m.priority === "Basse").length,
+    haute: modulesData.filter(m => m.priority === "Haute" || m.priority === "High").length,
+    moyenne: modulesData.filter(m => m.priority === "Moyenne" || m.priority === "Medium").length,
+    basse: modulesData.filter(m => m.priority === "Basse" || m.priority === "Low").length,
   };
 
   return (
@@ -371,19 +360,24 @@ export default function ModulesPage() {
       <section className="hero">
         <div className="hero-glow" />
         <div className="badge-pill">
-          <span>Fonctionnalités complètes</span>
-          <span className="pill-green">12 modules</span>
+          <span>{t.modulesPage.badge}</span>
+          <span className="pill-green">{t.modulesPage.badgeCount}</span>
         </div>
-        <h1 className="hero-title">Tous les modules pour une gestion de projet Agile réussie</h1>
+        <h1 className="hero-title">{t.modulesPage.heroTitle}</h1>
         
         <div className="filters">
-          {["Tous", "Haute", "Moyenne", "Basse"].map((f) => (
+          {[
+            { key: "Tous", label: t.modulesPage.filters.all, count: stats.total },
+            { key: "Haute", label: t.modulesPage.filters.high, count: stats.haute },
+            { key: "Moyenne", label: t.modulesPage.filters.medium, count: stats.moyenne },
+            { key: "Basse", label: t.modulesPage.filters.low, count: stats.basse }
+          ].map((f) => (
             <button 
-              key={f} 
-              className={`filter-btn ${filter === f ? 'active' : ''}`}
-              onClick={() => setFilter(f)}
+              key={f.key} 
+              className={`filter-btn ${filter === f.key ? 'active' : ''}`}
+              onClick={() => setFilter(f.key)}
             >
-              {f} {f === "Tous" ? `(${stats.total})` : f === "Haute" ? `(${stats.haute})` : f === "Moyenne" ? `(${stats.moyenne})` : `(${stats.basse})`}
+              {f.label} ({f.count})
             </button>
           ))}
         </div>
@@ -393,19 +387,19 @@ export default function ModulesPage() {
       <div className="stats-bar">
         <div className="stat-item">
           <span className="stat-number">{stats.total}</span>
-          <span className="stat-label">Modules totaux</span>
+          <span className="stat-label">{t.modulesPage.stats.total}</span>
         </div>
         <div className="stat-item">
           <span className="stat-number" style={{ color: "#EF4444" }}>{stats.haute}</span>
-          <span className="stat-label">Haute priorité</span>
+          <span className="stat-label">{t.modulesPage.stats.high}</span>
         </div>
         <div className="stat-item">
           <span className="stat-number" style={{ color: "#F59E0B" }}>{stats.moyenne}</span>
-          <span className="stat-label">Moyenne priorité</span>
+          <span className="stat-label">{t.modulesPage.stats.medium}</span>
         </div>
         <div className="stat-item">
           <span className="stat-number" style={{ color: "var(--green)" }}>{stats.basse}</span>
-          <span className="stat-label">Basse priorité</span>
+          <span className="stat-label">{t.modulesPage.stats.low}</span>
         </div>
       </div>
 
@@ -421,7 +415,9 @@ export default function ModulesPage() {
               <span className="module-id">{module.id}</span>
               <div className="module-icon-box">{module.icon}</div>
               <div className="badge-group">
-                <span className={`badge badge-priority-${module.priority.toLowerCase()}`}>{module.priority}</span>
+                <span className={`badge badge-priority-${module.priority.toLowerCase() === 'haute' || module.priority.toLowerCase() === 'high' ? 'haute' : module.priority.toLowerCase() === 'moyenne' || module.priority.toLowerCase() === 'medium' ? 'moyenne' : 'basse'}`}>
+                  {module.priority}
+                </span>
                 <span className="badge badge-sprint">Sprint {module.sprint}</span>
               </div>
               <h3 className="module-title">{module.title}</h3>
@@ -438,24 +434,19 @@ export default function ModulesPage() {
 
       {/* Sprint Recap Table */}
       <section className="section-table">
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Chronologie de déploiement</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.modulesPage.tableTitle}</h2>
         <div className="table-container">
           <table>
             <thead>
               <tr>
-                <th>Sprint</th>
-                <th>Période</th>
-                <th>Modules</th>
-                <th>Description</th>
+                <th>{t.modulesPage.tableHeaders.sprint}</th>
+                <th>{t.modulesPage.tableHeaders.period}</th>
+                <th>{t.modulesPage.tableHeaders.modules}</th>
+                <th>{t.modulesPage.tableHeaders.desc}</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { s: "S1", p: "Semaine 1–2", m: "M1, M2", d: "Setup initial, Authentification et gestion de base des projets." },
-                { s: "S2", p: "Semaine 3–4", m: "M3, M4, M5, M6", d: "Cœur intelligent : IA Gemini, Équipe, Backlog et Kanban." },
-                { s: "S3", p: "Semaine 5–6", m: "M7, M8, M9, M10", d: "Gestion opérationnelle : Sprints, Ressources, Coûts et Livrables." },
-                { s: "S4", p: "Semaine 7–8", m: "M11, M12", d: "Finalisation : Registre des risques, Administration et Tests." }
-              ].map((row, i) => (
+              {t.modulesPage.tableRows.map((row, i) => (
                 <tr key={i}>
                   <td><span className="sprint-badge">{row.s}</span></td>
                   <td style={{ color: "var(--muted-foreground)", fontWeight: 500 }}>{row.p}</td>

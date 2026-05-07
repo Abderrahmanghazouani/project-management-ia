@@ -1,55 +1,22 @@
 "use client";
-
-const technologies = [
-  {
-    name: "Next.js 14",
-    category: "Frontend",
-    desc: "Framework React avec App Router, SSR et optimisations automatiques.",
-    color: "#000000",
-  },
-  {
-    name: "Spring Boot",
-    category: "Backend",
-    desc: "API REST Java avec validation, securite et architecture en couches.",
-    color: "#6DB33F",
-  },
-  {
-    name: "PostgreSQL",
-    category: "Database",
-    desc: "Base relationnelle avec migrations Flyway/Liquibase et requetes optimisees.",
-    color: "#4169E1",
-  },
-  {
-    name: "Gemini AI",
-    category: "Intelligence",
-    desc: "API Google pour l'analyse CDC, extraction de taches et estimation automatique.",
-    color: "#4285F4",
-  },
-  {
-    name: "Docker",
-    category: "DevOps",
-    desc: "Conteneurisation complete avec Docker Compose - une commande pour tout deployer.",
-    color: "#2496ED",
-  },
-  {
-    name: "JWT + BCrypt",
-    category: "Securite",
-    desc: "Authentification stateless avec tokens signes et mots de passe haches.",
-    color: "#EF4444",
-  },
-];
-
-const specs = [
-  { label: "Performance API", value: "< 500ms", desc: "Temps de reponse hors IA" },
-  { label: "Timeout IA", value: "30s", desc: "Avec fallback manuel" },
-  { label: "Pagination", value: "20/page", desc: "Projets et tickets" },
-  { label: "Tests", value: "JUnit 5", desc: "Couverture modules Haute" },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function TechStackSection() {
+  const { t } = useLanguage();
+
+  const techColors: Record<string, string> = {
+    "Next.js 14": "#000000",
+    "Spring Boot": "#6DB33F",
+    "PostgreSQL": "#4169E1",
+    "Gemini AI": "#4285F4",
+    "Docker": "#2496ED",
+    "JWT + BCrypt": "#EF4444",
+  };
+
   return (
     <>
       <style>{`
+        /* ... existing styles ... */
         .tech-section {
           padding: 140px 24px;
           background: var(--muted);
@@ -110,7 +77,6 @@ export default function TechStackSection() {
           text-align: right;
         }
         
-        /* Tech grid */
         .tech-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -182,7 +148,6 @@ export default function TechStackSection() {
           line-height: 1.7;
         }
         
-        /* Specs row */
         .specs-row {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
@@ -224,7 +189,6 @@ export default function TechStackSection() {
           color: var(--muted-foreground);
         }
         
-        /* Terminal preview */
         .terminal-preview {
           margin-top: 60px;
           background: var(--foreground);
@@ -308,20 +272,20 @@ export default function TechStackSection() {
         <div className="tech-inner">
           <div className="tech-header">
             <div className="tech-title-wrap">
-              <div className="tech-eyebrow">Stack Technique</div>
-              <h2 className="tech-title text-balance">Architecture moderne et robuste</h2>
+              <div className="tech-eyebrow">{t.techStack.eyebrow}</div>
+              <h2 className="tech-title text-balance">{t.techStack.title}</h2>
             </div>
             <p className="tech-desc">
-              Une stack eprouvee combinant performance, securite et maintenabilite pour des projets de qualite.
+              {t.techStack.desc}
             </p>
           </div>
 
           <div className="tech-grid">
-            {technologies.map((tech) => (
+            {t.techStack.technologies.map((tech) => (
               <div 
                 key={tech.name} 
                 className="tech-card"
-                style={{ '--card-color': tech.color } as React.CSSProperties}
+                style={{ '--card-color': techColors[tech.name] || '#000' } as React.CSSProperties}
               >
                 <div className="tech-card-header">
                   <h3 className="tech-name">{tech.name}</h3>
@@ -333,7 +297,7 @@ export default function TechStackSection() {
           </div>
 
           <div className="specs-row">
-            {specs.map((spec) => (
+            {t.techStack.specs.map((spec) => (
               <div key={spec.label} className="spec-item">
                 <div className="spec-value">{spec.value}</div>
                 <div className="spec-label">{spec.label}</div>
@@ -349,24 +313,24 @@ export default function TechStackSection() {
                 <div className="terminal-dot" style={{ background: '#F59E0B' }} />
                 <div className="terminal-dot" style={{ background: '#22C55E' }} />
               </div>
-              <span className="terminal-title">terminal - deploiement</span>
+              <span className="terminal-title">{t.techStack.terminal.title}</span>
             </div>
             <div className="terminal-body">
-              <div><span className="t-comment"># Clone le repository</span></div>
+              <div><span className="t-comment">{t.techStack.terminal.clone}</span></div>
               <div><span className="t-prompt">$</span> <span className="t-cmd">git clone https://github.com/emsi/proj-ai.git</span></div>
               <div><span className="t-output">Cloning into &apos;proj-ai&apos;...</span></div>
               <div style={{ height: 8 }} />
-              <div><span className="t-comment"># Lance tous les services</span></div>
+              <div><span className="t-comment">{t.techStack.terminal.start}</span></div>
               <div><span className="t-prompt">$</span> <span className="t-cmd">docker-compose up -d</span></div>
               <div><span className="t-output">Creating network &quot;proj-ai_default&quot;...</span></div>
               <div><span className="t-output">Creating proj-ai_db_1 ...</span></div>
               <div><span className="t-output">Creating proj-ai_backend_1 ...</span></div>
               <div><span className="t-output">Creating proj-ai_frontend_1 ...</span></div>
-              <div><span className="t-success">All services started successfully on localhost:3000</span></div>
+              <div><span className="t-success">{t.techStack.terminal.success}</span></div>
             </div>
           </div>
         </div>
       </section>
     </>
   );
-}
+}

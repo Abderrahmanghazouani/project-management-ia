@@ -470,10 +470,10 @@ export default function HeroSection() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
-              Gemini AI actif
+              {t.hero.dashIA}
             </div>
             <div className="floating-badge bottom-left">
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>docker-compose up</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>{t.hero.dockerCmd || 'docker-compose up'}</span>
             </div>
             
             <div className="dashboard-card">
@@ -481,7 +481,7 @@ export default function HeroSection() {
                 <div className="win-btn" style={{ background: "#EF4444" }} />
                 <div className="win-btn" style={{ background: "#F59E0B" }} />
                 <div className="win-btn" style={{ background: "#22C55E" }} />
-                <div className="dash-url">localhost:3000/dashboard</div>
+                <div className="dash-url">{t.hero.dashUrl}</div>
               </div>
               
               <div className="dash-body">
@@ -492,12 +492,12 @@ export default function HeroSection() {
                   </div>
                   <nav className="sidebar-nav">
                     {[
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>, label: "Dashboard", active: true },
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>, label: "Projets" },
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>, label: "Backlog" },
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>, label: "Kanban" },
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>, label: "Sprints" },
-                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>, label: "Assistant IA" },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>, label: t.hero.sidebar.dash, active: true },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>, label: t.hero.sidebar.projects },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>, label: t.hero.sidebar.backlog },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>, label: t.hero.sidebar.kanban },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>, label: t.hero.sidebar.sprints },
+                      { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>, label: t.hero.sidebar.ai },
                     ].map((item, i) => (
                       <div key={i} className={`sidebar-item ${item.active ? 'active' : ''}`}>
                         {item.icon}
@@ -510,40 +510,40 @@ export default function HeroSection() {
                 <div className="dash-main">
                   <div className="dash-header">
                     <div className="dash-header-left">
-                      <h3>Sprint 2 - Semaine 3</h3>
-                      <p>Projet: SI Gestion Projets</p>
+                      <h3>{t.hero.stats.sprint}</h3>
+                      <p>{t.hero.stats.project}</p>
                     </div>
-                    <div className="dash-sprint-badge">ACTIF</div>
+                    <div className="dash-sprint-badge">{t.hero.stats.active}</div>
                   </div>
                   
                   <div className="dash-stats">
                     <div className="dash-stat">
                       <div className="dash-stat-value">24</div>
-                      <div className="dash-stat-label">Tickets</div>
+                      <div className="dash-stat-label">{t.hero.stats.tickets}</div>
                     </div>
                     <div className="dash-stat">
                       <div className="dash-stat-value">17</div>
-                      <div className="dash-stat-label">Completes</div>
+                      <div className="dash-stat-label">{t.hero.stats.completed}</div>
                     </div>
                     <div className="dash-stat">
                       <div className="dash-stat-value">3</div>
-                      <div className="dash-stat-label">Risques</div>
+                      <div className="dash-stat-label">{t.hero.stats.risks}</div>
                     </div>
                   </div>
                   
                   <div className="kanban-mini">
                     <div className="kanban-col" style={{ background: 'var(--muted)', border: '1px solid var(--border)' }}>
-                      <div className="kanban-col-header" style={{ color: 'var(--muted-foreground)' }}>TO DO</div>
+                      <div className="kanban-col-header" style={{ color: 'var(--muted-foreground)' }}>{t.hero.kanban.todo}</div>
                       <div className="kanban-ticket">CDC Form UI</div>
                       <div className="kanban-ticket">Auth Middleware</div>
                     </div>
                     <div className="kanban-col" style={{ background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)' }}>
-                      <div className="kanban-col-header" style={{ color: '#8B5CF6' }}>IN PROGRESS</div>
+                      <div className="kanban-col-header" style={{ color: '#8B5CF6' }}>{t.hero.kanban.progress}</div>
                       <div className="kanban-ticket">Gemini API</div>
                       <div className="kanban-ticket">Kanban Board</div>
                     </div>
                     <div className="kanban-col" style={{ background: 'var(--green-pale)', border: '1px solid var(--green-muted)' }}>
-                      <div className="kanban-col-header" style={{ color: 'var(--green)' }}>DONE</div>
+                      <div className="kanban-col-header" style={{ color: 'var(--green)' }}>{t.hero.kanban.done}</div>
                       <div className="kanban-ticket">JWT Auth</div>
                       <div className="kanban-ticket">DB Schema</div>
                     </div>
