@@ -88,7 +88,7 @@ public class GeminiService {
         return EstimationResponse.builder()
                 .tasks(new ArrayList<>())
                 .totalJours(0)
-                .complexite("Inconnue")
+                .complexite("Faible")
                 .risques(List.of(
                         "Service IA temporairement indisponible"))
                 .manuel(true)

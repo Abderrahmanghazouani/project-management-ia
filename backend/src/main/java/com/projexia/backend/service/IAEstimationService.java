@@ -1,7 +1,5 @@
 package com.projexia.backend.service;
 
-
-
 import com.projexia.backend.dto.request.CDCRequest;
 import com.projexia.backend.dto.response.EstimationResponse;
 import com.projexia.backend.dto.response.IATaskResponse;
@@ -12,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -45,16 +44,6 @@ public class IAEstimationService {
     // ANALYSER ET SAUVEGARDER
     // ═══════════════════════════════════════════
 
-    /**
-     * Analyser le CDC avec Gemini et sauvegarder
-     *
-     * Workflow :
-     * 1. Charger le projet et le client
-     * 2. Appeler GeminiService
-     * 3. Sauvegarder IAEstimation en BD
-     * 4. Sauvegarder les IATask en BD
-     * 5. Retourner EstimationResponse
-     */
     public EstimationResponse analyserEtSauvegarder(
             CDCRequest request) {
 
@@ -98,6 +87,7 @@ public class IAEstimationService {
                 .complexite(geminiResult.getComplexite())
                 .risques(risquesString)
                 .statut(StatutEstimation.EN_ATTENTE)
+                .dateCreation(LocalDateTime.now()) // ✅ toujours setter
                 .projet(projet)
                 .client(client)
                 .build();
@@ -145,11 +135,6 @@ public class IAEstimationService {
     // CONFIRMER L'ESTIMATION
     // ═══════════════════════════════════════════
 
-    /**
-     * Client confirme l'estimation
-     * → Statut passe à CONFIRMEE
-     * → Déclenche M4 (distribution des tâches)
-     */
     public EstimationResponse confirmerEstimation(
             String refEstimation) {
 
@@ -167,6 +152,12 @@ public class IAEstimationService {
         }
 
         estimation.setStatut(StatutEstimation.CONFIRMEE);
+
+        // ✅ Correction — dateCreation ne doit pas être null
+        if (estimation.getDateCreation() == null) {
+            estimation.setDateCreation(LocalDateTime.now());
+        }
+
         estimationRepository.save(estimation);
 
         log.info("Estimation confirmée : {}",
@@ -184,11 +175,6 @@ public class IAEstimationService {
     // REJETER L'ESTIMATION
     // ═══════════════════════════════════════════
 
-    /**
-     * Client rejette l'estimation
-     * → Statut passe à REJETEE
-     * → Saisie manuelle possible
-     */
     public EstimationResponse rejeterEstimation(
             String refEstimation) {
 
@@ -206,6 +192,12 @@ public class IAEstimationService {
         }
 
         estimation.setStatut(StatutEstimation.REJETEE);
+
+        // ✅ Correction — dateCreation ne doit pas être null
+        if (estimation.getDateCreation() == null) {
+            estimation.setDateCreation(LocalDateTime.now());
+        }
+
         estimationRepository.save(estimation);
 
         log.info("Estimation rejetée : {}",
@@ -223,9 +215,6 @@ public class IAEstimationService {
     // HISTORIQUE DES ESTIMATIONS
     // ═══════════════════════════════════════════
 
-    /**
-     * Retourner toutes les estimations d'un projet
-     */
     @Transactional(readOnly = true)
     public List<EstimationResponse> historique(
             String refProjet) {
