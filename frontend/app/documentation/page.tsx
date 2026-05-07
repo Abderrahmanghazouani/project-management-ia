@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import { Footer, CTASection } from "../components/CTAAndFooter";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function DocumentationPage() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -413,11 +415,11 @@ export default function DocumentationPage() {
       <section className="hero">
         <div className="hero-glow" />
         <div className="badge-pill">
-          <span>Documentation complète</span>
-          <span className="pill-green">v1.0</span>
+          <span>{t.docsPage.badge}</span>
+          <span className="pill-green">{t.docsPage.badgeVersion}</span>
         </div>
-        <h1 className="hero-title">Tout ce que vous devez savoir sur ProJAI</h1>
-        <p className="hero-subtitle">API, déploiement, guides utilisateur — commencez en quelques minutes</p>
+        <h1 className="hero-title">{t.docsPage.heroTitle}</h1>
+        <p className="hero-subtitle">{t.docsPage.heroSubtitle}</p>
         
         <div className="search-container">
           <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -427,7 +429,7 @@ export default function DocumentationPage() {
           <input 
             type="text" 
             className="search-input" 
-            placeholder="Rechercher dans la documentation..."
+            placeholder={t.docsPage.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -437,14 +439,7 @@ export default function DocumentationPage() {
       {/* Quick Nav */}
       <section className="section-nav">
         <div className="nav-grid">
-          {[
-            { icon: "🚀", title: "Démarrage rapide", sub: "Installez et lancez le projet en 5 min", color: "#F0FDF4" },
-            { icon: "⚙️", title: "Guide technique", sub: "Architecture Spring Boot & Next.js", color: "#EFF6FF" },
-            { icon: "📘", title: "Guide utilisateur", sub: "Comment utiliser l'IA et le Kanban", color: "#F5F3FF" },
-            { icon: "🔌", title: "API Reference", sub: "Documentation Swagger & Endpoints", color: "#FEF2F2" },
-            { icon: "🐳", title: "Déploiement", sub: "Docker, CI/CD et production", color: "#FFFBEB" },
-            { icon: "❓", title: "FAQ", sub: "Réponses aux questions courantes", color: "#F9FAFB" }
-          ].map((item, i) => (
+          {t.docsPage.navCards.map((item, i) => (
             <div key={i} className="nav-card">
               <div className="nav-icon-box" style={{ background: item.color }}>{item.icon}</div>
               <h3 className="nav-card-title">{item.title}</h3>
@@ -458,12 +453,15 @@ export default function DocumentationPage() {
       <section className="section-quick-start">
         <div className="qs-grid">
           <div>
-            <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 40 }}>Prêts à coder ?</h2>
+            <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 40 }}>{t.docsPage.quickStartTitle}</h2>
             <ul className="prereqs-list">
-              <li className="prereq-item"><span style={{ color: "#22C55E" }}>🟢</span> Node.js 18+</li>
-              <li className="prereq-item"><span style={{ color: "#78350F" }}>☕</span> Java + Maven 17+</li>
-              <li className="prereq-item"><span style={{ color: "#2563EB" }}>🐳</span> Docker Compose (optionnel)</li>
-              <li className="prereq-item"><span style={{ color: "#16A34A" }}>🤖</span> Clé API Gemini (requis)</li>
+              {t.docsPage.prereqs.map((p, i) => (
+                <li key={i} className="prereq-item">
+                  <span style={{ color: p.icon === "🟢" ? "#22C55E" : p.icon === "☕" ? "#78350F" : p.icon === "🐳" ? "#2563EB" : "#16A34A" }}>
+                    {p.icon}
+                  </span> {p.label}
+                </li>
+              ))}
             </ul>
           </div>
           <div className="code-block">
@@ -474,11 +472,11 @@ export default function DocumentationPage() {
             </div>
             <pre style={{ fontSize: 14, color: "#fff", lineHeight: 1.8 }}>
               <code>
-                <span className="code-comment"># 1. Cloner le repository</span><br />
-                <span className="code-cmd">git clone</span> <span className="code-string">https://github.com/votre-org/projai.git</span> && <span className="code-cmd">cd</span> projai<br /><br />
-                <span className="code-comment"># 2. Variables d'environnement</span><br />
+                <span className="code-comment">{t.docsPage.quickStartComments.clone}</span><br />
+                <span className="code-cmd">git clone</span> <span className="code-string">https://github.com/{t.docsPage.envPlaceholders.github}/projai.git</span> && <span className="code-cmd">cd</span> projai<br /><br />
+                <span className="code-comment">{t.docsPage.quickStartComments.env}</span><br />
                 <span className="code-cmd">cp</span> .env.example .env<br /><br />
-                <span className="code-comment"># 3. Lancer avec Docker</span><br />
+                <span className="code-comment">{t.docsPage.quickStartComments.docker}</span><br />
                 <span className="code-cmd">docker-compose up --build</span><br /><br />
                 <span className="code-comment"># Frontend → http://localhost:3000</span><br />
                 <span className="code-comment"># Backend → :8080/api</span>
@@ -490,24 +488,18 @@ export default function DocumentationPage() {
 
       {/* Tech Stack */}
       <section className="section-stack">
-        <h2 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 48 }}>Stack Technologique</h2>
+        <h2 style={{ textAlign: "center", fontSize: 28, fontWeight: 800, marginBottom: 48 }}>{t.docsPage.stackTitle}</h2>
         <div className="stack-table-container">
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead style={{ background: "var(--gray-50)" }}>
               <tr>
-                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>Couche</th>
-                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>Technologie</th>
-                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>Version</th>
+                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>{t.docsPage.stackHeaders.layer}</th>
+                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>{t.docsPage.stackHeaders.tech}</th>
+                <th style={{ padding: 16, textAlign: "left", fontSize: 12 }}>{t.docsPage.stackHeaders.version}</th>
               </tr>
             </thead>
             <tbody>
-              {[
-                { l: "Frontend", t: "Next.js", v: "14.x", c: "#F5F3FF", tc: "#8B5CF6" },
-                { l: "Backend", t: "Spring Boot", v: "3.x", c: "#FEF2F2", tc: "#EF4444" },
-                { l: "Database", t: "PostgreSQL", v: "15", c: "#FFF7ED", tc: "#F97316" },
-                { l: "IA", t: "Google Gemini", v: "1.5 Flash", c: "#F0FDF4", tc: "#16A34A" },
-                { l: "Infra", t: "Docker", v: "Compose", c: "#EFF6FF", tc: "#3B82F6" }
-              ].map((row, i) => (
+              {t.docsPage.stackRows.map((row, i) => (
                 <tr key={i} style={{ borderBottom: "1px solid var(--border-light)" }}>
                   <td style={{ padding: 16 }}><span className="layer-badge" style={{ background: row.c, color: row.tc }}>{row.l}</span></td>
                   <td style={{ padding: 16, fontWeight: 600 }}>{row.t}</td>
@@ -519,12 +511,7 @@ export default function DocumentationPage() {
         </div>
 
         <div className="kpi-grid">
-          {[
-            { label: "Performance API", val: "<500ms" },
-            { label: "Timeout IA", val: "30s" },
-            { label: "Pagination", val: "20/page" },
-            { label: "Tests Coverage", val: "80%+" }
-          ].map((kpi, i) => (
+          {t.docsPage.kpi.map((kpi, i) => (
             <div key={i} className="kpi-card">
               <div style={{ fontSize: 18, fontWeight: 800, color: "var(--green)" }}>{kpi.val}</div>
               <div style={{ fontSize: 11, color: "var(--muted-foreground)", textTransform: "uppercase", marginTop: 4 }}>{kpi.label}</div>
@@ -535,27 +522,9 @@ export default function DocumentationPage() {
 
       {/* API Reference */}
       <section className="section-api">
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 80 }}>Référence API</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 80 }}>{t.docsPage.apiTitle}</h2>
         
-        {[
-          { 
-            group: "Authentification", 
-            endpoints: [
-              { m: "POST", p: "/api/auth/register", d: "Créer un compte", c: "#16A34A" },
-              { m: "POST", p: "/api/auth/login", d: "Se connecter (JWT)", c: "#16A34A" },
-              { m: "GET", p: "/api/auth/me", d: "Profil utilisateur", c: "#3B82F6" }
-            ]
-          },
-          { 
-            group: "Projets", 
-            endpoints: [
-              { m: "GET", p: "/api/projets", d: "Lister (paginé 20/page)", c: "#3B82F6" },
-              { m: "POST", p: "/api/projets", d: "Créer un projet", c: "#16A34A" },
-              { m: "PUT", p: "/api/projets/{id}", d: "Modifier", c: "#F59E0B" },
-              { m: "DELETE", p: "/api/projets/{id}", d: "Supprimer", c: "#EF4444" }
-            ]
-          }
-        ].map((group, i) => (
+        {t.docsPage.apiGroups.map((group, i) => (
           <div key={i} className="api-group">
             <div className="group-title">{group.group}</div>
             {group.endpoints.map((ep, j) => (
@@ -571,18 +540,18 @@ export default function DocumentationPage() {
 
       {/* Env Vars */}
       <section className="section-env">
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Variables d'environnement</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.docsPage.envTitle}</h2>
         <div className="env-grid">
           <div className="env-card">
-            <h3 style={{ marginBottom: 20, fontSize: 16 }}>.env Backend</h3>
+            <h3 style={{ marginBottom: 20, fontSize: 16 }}>{t.docsPage.envBackend}</h3>
             <pre style={{ fontSize: 14, fontFamily: "var(--font-mono)" }}>
-              <span className="env-key">GEMINI_API_KEY</span>=<span className="env-val">votre_cle_api</span><br />
-              <span className="env-key">JWT_SECRET</span>=<span className="env-val">votre_secret_32chars</span><br />
+              <span className="env-key">GEMINI_API_KEY</span>=<span className="env-val">{t.docsPage.envPlaceholders.gemini}</span><br />
+              <span className="env-key">JWT_SECRET</span>=<span className="env-val">{t.docsPage.envPlaceholders.jwt}</span><br />
               <span className="env-key">POSTGRES_DB</span>=<span className="env-val">projai_db</span>
             </pre>
           </div>
           <div className="env-card">
-            <h3 style={{ marginBottom: 20, fontSize: 16 }}>.env.local Frontend</h3>
+            <h3 style={{ marginBottom: 20, fontSize: 16 }}>{t.docsPage.envFrontend}</h3>
             <pre style={{ fontSize: 14, fontFamily: "var(--font-mono)" }}>
               <span className="env-key">NEXT_PUBLIC_API_URL</span>=<span className="env-val">http://localhost:8080/api</span><br />
               <span className="env-key">NEXT_PUBLIC_WS_URL</span>=<span className="env-val">ws://localhost:8080/ws</span>
@@ -593,25 +562,18 @@ export default function DocumentationPage() {
 
       {/* RBAC */}
       <section className="section-rbac">
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Droits & Rôles (RBAC)</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.docsPage.rbacTitle}</h2>
         <div style={{ maxWidth: 900, margin: "0 auto", overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "2px solid var(--border)" }}>
-                <th style={{ padding: 16, textAlign: "left" }}>Fonctionnalité</th>
-                <th style={{ padding: 16 }}>Admin</th>
-                <th style={{ padding: 16 }}>Manager</th>
-                <th style={{ padding: 16 }}>Dev</th>
-                <th style={{ padding: 16 }}>Client</th>
+                {t.docsPage.rbacHeaders.map((header, i) => (
+                  <th key={i} style={{ padding: 16, textAlign: i === 0 ? "left" : "center" }}>{header}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {[
-                ["Gérer utilisateurs", "✓", "✓", "—", "—"],
-                ["Analyser CDC (IA)", "✓", "✓", "—", "✓"],
-                ["Gérer backlog", "✓", "✓", "✓", "—"],
-                ["Voir board Kanban", "✓", "✓", "✓", "✓"]
-              ].map((row, i) => (
+              {t.docsPage.rbacRows.map((row, i) => (
                 <tr key={i} style={{ borderBottom: "1px solid var(--border-light)" }}>
                   <td style={{ padding: 16, fontWeight: 600 }}>{row[0]}</td>
                   {row.slice(1).map((cell, j) => (
@@ -628,9 +590,9 @@ export default function DocumentationPage() {
       <section className="section-tests">
         <div className="qs-grid">
           <div>
-            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 24 }}>Definition of Done</h3>
+            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 24 }}>{t.docsPage.dodTitle}</h3>
             <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "16px" }}>
-              {["Conforme aux critères d'acceptation", "Tests unitaires modules Haute", "Documentation Swagger à jour", "Code review effectuée"].map((item, i) => (
+              {t.docsPage.dodItems.map((item, i) => (
                 <li key={i} style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14 }}>
                   <span style={{ color: "var(--green)" }}>✓</span> {item}
                 </li>
@@ -638,12 +600,8 @@ export default function DocumentationPage() {
             </ul>
           </div>
           <div>
-            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 24 }}>Couverture de tests</h3>
-            {[
-              { m: "M1 Authentification", p: 80 },
-              { m: "M3 IA Gemini", p: 70 },
-              { m: "M5 Backlog", p: 80 }
-            ].map((bar, i) => (
+            <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 24 }}>{t.docsPage.coverageTitle}</h3>
+            {t.docsPage.coverageBars.map((bar, i) => (
               <div key={i} style={{ marginBottom: 20 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, fontWeight: 600 }}>
                   <span>{bar.m}</span>
@@ -660,13 +618,9 @@ export default function DocumentationPage() {
 
       {/* FAQ & Support */}
       <section style={{ padding: "100px 24px", background: "var(--gray-900)" }}>
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, color: "#fff", marginBottom: 60 }}>FAQ & Support</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, color: "#fff", marginBottom: 60 }}>{t.docsPage.faqSupportTitle}</h2>
         <div className="faq-container" style={{ maxWidth: 800, margin: "0 auto" }}>
-          {[
-            { q: "Comment obtenir une clé API Gemini ?", a: "Rendez-vous sur makersuite.google.com/app/apikey. Le plan gratuit offre 60 req/min." },
-            { q: "Puis-je utiliser sans Docker ?", a: "Oui, configurez PostgreSQL manuellement et utilisez mvn spring-boot:run + npm run dev." },
-            { q: "Les données sont-elles chiffrées ?", a: "Oui, BCrypt 10 rounds pour les mots de passe et HMAC-SHA256 pour les tokens JWT." }
-          ].map((item, i) => (
+          {t.docsPage.faq.map((item, i) => (
             <div key={i} style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, marginBottom: 12, overflow: "hidden" }}>
               <div 
                 onClick={() => toggleFaq(i)}
@@ -683,18 +637,18 @@ export default function DocumentationPage() {
         <div className="support-grid">
           <div className="support-card">
             <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>✉️</span>
-            <div style={{ fontWeight: 700 }}>Email</div>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>support@projai.com</div>
+            <div style={{ fontWeight: 700 }}>{t.docsPage.supportCards.email.title}</div>
+            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>{t.docsPage.supportCards.email.sub}</div>
           </div>
           <div className="support-card">
             <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>💬</span>
-            <div style={{ fontWeight: 700 }}>Chat direct</div>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>Disponible 9h–18h</div>
+            <div style={{ fontWeight: 700 }}>{t.docsPage.supportCards.chat.title}</div>
+            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>{t.docsPage.supportCards.chat.sub}</div>
           </div>
           <div className="support-card">
             <span style={{ fontSize: 32, display: "block", marginBottom: 16 }}>🐙</span>
-            <div style={{ fontWeight: 700 }}>GitHub</div>
-            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>votre-org/projai</div>
+            <div style={{ fontWeight: 700 }}>{t.docsPage.supportCards.github.title}</div>
+            <div style={{ color: "rgba(255,255,255,0.6)", fontSize: 13 }}>{t.docsPage.supportCards.github.sub}</div>
           </div>
         </div>
       </section>

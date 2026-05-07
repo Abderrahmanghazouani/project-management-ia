@@ -308,8 +308,8 @@ export default function HeroCTA() {
                             </svg>
                         </div>
                         <div>
-                            <div className="float-text">Gemini AI</div>
-                            <div className="float-sub">Analyse CDC</div>
+                            <div className="float-text">{t.heroCTA.cards.gemini.title}</div>
+                            <div className="float-sub">{t.heroCTA.cards.gemini.sub}</div>
                         </div>
                     </div>
 
@@ -323,8 +323,8 @@ export default function HeroCTA() {
                             </svg>
                         </div>
                         <div>
-                            <div className="float-text">Kanban</div>
-                            <div className="float-sub">Board temps reel</div>
+                            <div className="float-text">{t.heroCTA.cards.kanban.title}</div>
+                            <div className="float-sub">{t.heroCTA.cards.kanban.sub}</div>
                         </div>
                     </div>
 
@@ -337,8 +337,8 @@ export default function HeroCTA() {
                             </svg>
                         </div>
                         <div>
-                            <div className="float-text">Equipe</div>
-                            <div className="float-sub">Distribution auto</div>
+                            <div className="float-text">{t.heroCTA.cards.team.title}</div>
+                            <div className="float-sub">{t.heroCTA.cards.team.sub}</div>
                         </div>
                     </div>
 
@@ -349,8 +349,8 @@ export default function HeroCTA() {
                             </svg>
                         </div>
                         <div>
-                            <div className="float-text">Suivi</div>
-                            <div className="float-sub">Couts et risques</div>
+                            <div className="float-text">{t.heroCTA.cards.tracking.title}</div>
+                            <div className="float-sub">{t.heroCTA.cards.tracking.sub}</div>
                         </div>
                     </div>
                 </div>
@@ -359,24 +359,23 @@ export default function HeroCTA() {
                     <div className="hero-badge-wrap">
                         <div className="hero-badge primary">
                             <span className="badge-dot" />
-                            <span>IA operationnelle</span>
+                            <span>{t.heroCTA.badgeIA}</span>
                         </div>
-                        <div className="hero-badge">EMSI 2025-2026</div>
+                        <div className="hero-badge">{t.heroCTA.badgeEMSI}</div>
                     </div>
 
                     <h1 className="hero-cta-title text-balance">
-                        Gestion de projets<br />
-                        <span className="highlight">intelligente</span>
+                        {t.heroCTA.title1}<br />
+                        <span className="highlight">{t.heroCTA.title2}</span>
                     </h1>
 
                     <p className="hero-subtitle text-pretty">
-                        Une plateforme Agile complete propulsee par Gemini AI. Du cahier des charges au board Kanban,
-                        automatisez l&apos;analyse, la planification et la distribution des taches.
+                        {t.heroCTA.subtitle}
                     </p>
 
                     <div className="hero-actions">
                         <button className="btn-hero-primary">
-                            Demarrer gratuitement
+                            {t.heroCTA.btnPrimary}
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
@@ -385,26 +384,26 @@ export default function HeroCTA() {
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <polygon points="5,3 19,12 5,21" />
                             </svg>
-                            Voir la demo
+                            {t.heroCTA.btnSecondary}
                         </button>
                     </div>
 
                     <div className="hero-stats">
                         <div className="hero-stat">
                             <div className="hero-stat-value">12<span>+</span></div>
-                            <div className="hero-stat-label">Modules</div>
+                            <div className="hero-stat-label">{t.heroCTA.stats.modules}</div>
                         </div>
                         <div className="hero-stat">
                             <div className="hero-stat-value"><span>&lt;</span>30s</div>
-                            <div className="hero-stat-label">Analyse IA</div>
+                            <div className="hero-stat-label">{t.heroCTA.stats.analysis}</div>
                         </div>
                         <div className="hero-stat">
                             <div className="hero-stat-value">4</div>
-                            <div className="hero-stat-label">Roles</div>
+                            <div className="hero-stat-label">{t.heroCTA.stats.roles}</div>
                         </div>
                         <div className="hero-stat">
                             <div className="hero-stat-value">1</div>
-                            <div className="hero-stat-label">Commande</div>
+                            <div className="hero-stat-label">{t.heroCTA.stats.command}</div>
                         </div>
                     </div>
                 </div>

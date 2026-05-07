@@ -4,8 +4,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import { Footer, CTASection } from "../components/CTAAndFooter";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function WorkflowIAPage() {
+  const { t } = useLanguage();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
@@ -429,48 +431,28 @@ export default function WorkflowIAPage() {
       <section className="hero">
         <div className="hero-glow" />
         <div className="badge-pill">
-          <span>Processus intelligent</span>
-          <span className="pill-green">IA Gemini</span>
+          <span>{t.workflowPage.badge}</span>
+          <span className="pill-green">{t.workflowPage.badgeIA}</span>
         </div>
-        <h1 className="hero-title">Comment l'IA transforme votre CDC en backlog opérationnel</h1>
-        <p className="hero-subtitle">Du texte brut à un projet structuré en moins de 30 secondes</p>
+        <h1 className="hero-title">{t.workflowPage.heroTitle}</h1>
+        <p className="hero-subtitle">{t.workflowPage.heroSubtitle}</p>
         <div className="hero-actions">
-          <Link href="/auth" className="btn-primary">Essayer l'analyse →</Link>
-          <button className="btn-secondary">▷ Regarder la démo</button>
+          <Link href="/auth" className="btn-primary">{t.workflowPage.btnAnalyse}</Link>
+          <button className="btn-secondary">▷ {t.workflowPage.btnDemo}</button>
         </div>
       </section>
 
       {/* Timeline */}
       <section className="section-timeline">
-        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Le parcours de votre projet</h2>
+        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.workflowPage.timelineTitle}</h2>
         <div className="timeline-container">
           <div className="timeline-line" />
           
-          {[
-            { 
-              num: "01", 
-              title: "Dépôt du CDC", 
-              desc: "Saisie de votre Cahier des Charges. Minimum 100 caractères pour une analyse optimale. Supporte le texte brut avec prévisualisation immédiate." 
-            },
-            { 
-              num: "02", 
-              title: "Analyse par Gemini AI", 
-              desc: "Traitement par l'API gemini-1.5-flash. Utilisation d'un prompt structuré pour extraire tâches, durées et risques en moins de 30 secondes." 
-            },
-            { 
-              num: "03", 
-              title: "Validation Client", 
-              desc: "Affichage détaillé de l'estimation : tâches, durées, complexité et risques. Vous confirmez ou rejetez pour ajuster les paramètres." 
-            },
-            { 
-              num: "04", 
-              title: "Distribution automatique", 
-              desc: "Sélection des membres de l'équipe et répartition équitable basée sur la charge. Ajustement manuel possible par le manager." 
-            }
-          ].map((step, i) => (
+          {t.workflowPage.steps.map((step, i) => (
             <div key={i} className="timeline-step" style={{ animationDelay: `${i * 0.15}s` }}>
               <div className="timeline-dot" />
-              <span className="step-number">Step {step.num}</span>
+              <span className="step-number">{t.workflowPage.stepLabel} {step.num}</span>
+
               <h3 className="step-title">{step.title}</h3>
               <div className="step-content">
                 <p style={{ color: "var(--muted-foreground)" }}>{step.desc}</p>
@@ -482,38 +464,38 @@ export default function WorkflowIAPage() {
 
       {/* Visual Flow */}
       <section className="section-flow">
-        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 12 }}>Architecture du flux</h2>
-        <p style={{ color: "var(--muted-foreground)", marginBottom: 60 }}>Une chaîne de valeur automatisée de bout en bout</p>
+        <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 12 }}>{t.workflowPage.flowTitle}</h2>
+        <p style={{ color: "var(--muted-foreground)", marginBottom: 60 }}>{t.workflowPage.flowSubtitle}</p>
         
         <div className="flow-grid">
           <div className="flow-node">
             <span className="node-icon">📝</span>
-            <div className="node-title">CDC</div>
-            <div className="node-subtitle">Formulaire</div>
+            <div className="node-title">{t.workflowPage.flowNodes.cdc}</div>
+            <div className="node-subtitle">{t.workflowPage.flowNodes.form}</div>
           </div>
           <div className="flow-arrow">→</div>
           <div className="flow-node highlight">
             <span className="node-icon">🤖</span>
-            <div className="node-title">Gemini AI</div>
-            <div className="node-subtitle">Analyse IA</div>
+            <div className="node-title">{t.workflowPage.flowNodes.gemini}</div>
+            <div className="node-subtitle">{t.workflowPage.flowNodes.analysis}</div>
           </div>
           <div className="flow-arrow">→</div>
           <div className="flow-node">
             <span className="node-icon">📄</span>
-            <div className="node-title">JSON</div>
-            <div className="node-subtitle">Tâches/Durées</div>
+            <div className="node-title">{t.workflowPage.flowNodes.json}</div>
+            <div className="node-subtitle">{t.workflowPage.flowNodes.tasks}</div>
           </div>
           <div className="flow-arrow">→</div>
           <div className="flow-node">
             <span className="node-icon">✅</span>
-            <div className="node-title">Validation</div>
-            <div className="node-subtitle">Client confirme</div>
+            <div className="node-title">{t.workflowPage.flowNodes.validation}</div>
+            <div className="node-subtitle">{t.workflowPage.flowNodes.confirm}</div>
           </div>
           <div className="flow-arrow">→</div>
           <div className="flow-node">
             <span className="node-icon">📋</span>
-            <div className="node-title">Backlog</div>
-            <div className="node-subtitle">Tickets créés</div>
+            <div className="node-title">{t.workflowPage.flowNodes.backlog}</div>
+            <div className="node-subtitle">{t.workflowPage.flowNodes.tickets}</div>
           </div>
         </div>
 
@@ -542,9 +524,9 @@ export default function WorkflowIAPage() {
               <br />
               &nbsp;&nbsp;<span className="json-key">"total_days"</span>: <span className="json-number">14</span>,
               <br />
-              &nbsp;&nbsp;<span className="json-key">"complexity"</span>: <span className="json-string">"Moyenne"</span>,
+              &nbsp;&nbsp;<span className="json-key">"complexity"</span>: <span className="json-string">"{t.workflowPage.jsonLabels.complexity}"</span>,
               <br />
-              &nbsp;&nbsp;<span className="json-key">"risks"</span>: [<span className="json-string">"API Latency"</span>, <span className="json-string">"Data Consistency"</span>]
+              &nbsp;&nbsp;<span className="json-key">"risks"</span>: [<span className="json-string">"{t.workflowPage.jsonLabels.risk1}"</span>, <span className="json-string">"{t.workflowPage.jsonLabels.risk2}"</span>]
               <br />
               {"}"}
             </code>
@@ -554,16 +536,9 @@ export default function WorkflowIAPage() {
 
       {/* Advantages */}
       <section className="section-advantages">
-        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Avantages de l'approche IA</h2>
+        <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.workflowPage.advTitle}</h2>
         <div className="grid-3">
-          {[
-            { icon: "⚡", title: "Gain de temps", desc: "Passez de plusieurs jours de planification à quelques secondes." },
-            { icon: "🎯", title: "Précision", desc: "L'IA identifie des dépendances souvent oubliées par l'humain." },
-            { icon: "🔍", title: "Anticipation", desc: "Détection proactive des risques techniques et fonctionnels." },
-            { icon: "🔄", title: "Flexibilité", desc: "Ré-analysez votre projet instantanément après chaque modification." },
-            { icon: "📐", title: "Standardisation", desc: "Format de backlog cohérent pour tous vos projets." },
-            { icon: "📈", title: "Évolutivité", desc: "Gérez des dizaines de projets simultanément sans surcharge." }
-          ].map((adv, i) => (
+          {t.workflowPage.advantages.map((adv, i) => (
             <div key={i} className="adv-card">
               <span className="adv-icon">{adv.icon}</span>
               <h3 className="adv-title">{adv.title}</h3>
@@ -576,15 +551,9 @@ export default function WorkflowIAPage() {
       {/* FAQ */}
       <section className="section-faq">
         <div className="faq-container">
-          <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>Questions fréquentes</h2>
+          <h2 style={{ textAlign: "center", fontSize: 32, fontWeight: 800, marginBottom: 60 }}>{t.workflowPage.faqTitle}</h2>
           
-          {[
-            { q: "Que faire si l'API Gemini est indisponible ?", a: "Un mode dégradé permet la saisie manuelle des tâches en attendant le rétablissement du service." },
-            { q: "Puis-je modifier l'estimation ?", a: "Oui, après l'analyse IA, vous avez la main pour ajuster chaque durée et titre de tâche." },
-            { q: "L'IA apprend-elle ?", a: "Nos modèles sont affinés pour ProJAI mais ne conservent pas vos données privées pour l'entraînement global." },
-            { q: "Limite de taille du CDC ?", a: "Nous acceptons jusqu'à 50 000 caractères pour une analyse exhaustive." },
-            { q: "Les données sont-elles stockées ?", a: "Seules les versions validées sont stockées en base de données pour votre suivi projet." }
-          ].map((item, i) => (
+          {t.workflowPage.faq.map((item, i) => (
             <div key={i} className={`faq-item ${openFaq === i ? 'open' : ''}`}>
               <div className="faq-question" onClick={() => toggleFaq(i)}>
                 {item.q}

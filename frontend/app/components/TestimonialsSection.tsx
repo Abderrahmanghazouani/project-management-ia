@@ -1,33 +1,13 @@
 "use client";
-
-const testimonials = [
-  {
-    quote: "ProjAI a transforme notre facon de gerer les sprints. L'analyse automatique du CDC nous fait gagner des heures chaque semaine.",
-    author: "Sarah M.",
-    role: "Chef de Projet",
-    company: "Tech Solutions",
-    avatar: "SM",
-  },
-  {
-    quote: "La distribution automatique des taches par l'IA est incroyablement precise. Notre equipe est mieux equilibree que jamais.",
-    author: "Mohamed K.",
-    role: "Scrum Master",
-    company: "DevStudio",
-    avatar: "MK",
-  },
-  {
-    quote: "Interface intuitive, deploiement Docker en une commande, et l'integration Gemini est un vrai game-changer pour nos estimations.",
-    author: "Amina B.",
-    role: "Lead Developer",
-    company: "Innovate Labs",
-    avatar: "AB",
-  },
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function TestimonialsSection() {
+  const { t } = useLanguage();
+
   return (
     <>
       <style>{`
+        /* ... existing styles ... */
         .testimonials-section {
           padding: 120px 24px;
           background: var(--background);
@@ -153,14 +133,14 @@ export default function TestimonialsSection() {
       <section className="testimonials-section">
         <div className="testimonials-inner">
           <div className="testimonials-header">
-            <div className="testimonials-eyebrow">Temoignages</div>
+            <div className="testimonials-eyebrow">{t.testimonials.eyebrow}</div>
             <h2 className="testimonials-title text-balance">
-              Ce que disent nos utilisateurs
+              {t.testimonials.title}
             </h2>
           </div>
 
           <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
+            {t.testimonials.list.map((testi, i) => (
               <div 
                 key={i} 
                 className="testimonial-card"
@@ -171,13 +151,13 @@ export default function TestimonialsSection() {
                     <span key={j} className="star">&#9733;</span>
                   ))}
                 </div>
-                <p className="testimonial-quote">&ldquo;{t.quote}&rdquo;</p>
+                <p className="testimonial-quote">&ldquo;{testi.quote}&rdquo;</p>
                 <div className="testimonial-author">
-                  <div className="author-avatar">{t.avatar}</div>
+                  <div className="author-avatar">{testi.avatar}</div>
                   <div className="author-info">
-                    <div className="author-name">{t.author}</div>
+                    <div className="author-name">{testi.author}</div>
                     <div className="author-role">
-                      {t.role} <span className="author-company">@ {t.company}</span>
+                      {testi.role} <span className="author-company">@ {testi.company}</span>
                     </div>
                   </div>
                 </div>
@@ -188,4 +168,4 @@ export default function TestimonialsSection() {
       </section>
     </>
   );
-}
+}

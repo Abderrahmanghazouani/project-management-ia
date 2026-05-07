@@ -1,81 +1,57 @@
 "use client";
-
-const roles = [
-  {
-    role: "Client",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
-      </svg>
-    ),
-    color: "#22C55E",
-    responsibilities: [
-      "Depose le cahier des charges",
-      "Consulte l'estimation IA",
-      "Confirme ou rejette l'analyse",
-      "Selectionne les membres d'equipe",
-      "Suit l'avancement du projet"
-    ]
-  },
-  {
-    role: "Manager",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    ),
-    color: "#8B5CF6",
-    responsibilities: [
-      "Cree et supervise les projets",
-      "Gere le backlog et les tickets",
-      "Ajuste la distribution des taches",
-      "Suit les couts et les risques",
-      "Cree les sprints et le planning"
-    ]
-  },
-  {
-    role: "Developpeur",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <polyline points="16,18 22,12 16,6"/>
-        <polyline points="8,6 2,12 8,18"/>
-      </svg>
-    ),
-    color: "#F59E0B",
-    responsibilities: [
-      "Consulte ses taches assignees",
-      "Met a jour les statuts des tickets",
-      "Commente les tickets",
-      "Gere le workflow Kanban",
-      "Visualise sa charge de travail"
-    ]
-  },
-  {
-    role: "Admin",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-      </svg>
-    ),
-    color: "#EF4444",
-    responsibilities: [
-      "Gere tous les utilisateurs",
-      "Attribue les roles globaux",
-      "Configure la plateforme",
-      "Accede a toutes les fonctions",
-      "Supervise la securite"
-    ]
-  }
-];
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function RolesSection() {
+  const { t } = useLanguage();
+
+  const roleConfigs = [
+    {
+      roleId: "Client",
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      ),
+      color: "#22C55E"
+    },
+    {
+      roleId: "Manager",
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      ),
+      color: "#8B5CF6"
+    },
+    {
+      roleId: "Developer",
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="16,18 22,12 16,6"/>
+          <polyline points="8,6 2,12 8,18"/>
+        </svg>
+      ),
+      color: "#F59E0B"
+    },
+    {
+      roleId: "Admin",
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      ),
+      color: "#EF4444"
+    }
+  ];
+
   return (
     <>
       <style>{`
+        /* ... existing styles ... */
         .roles-section {
           padding: 140px 24px;
           background: var(--muted);
@@ -234,53 +210,56 @@ export default function RolesSection() {
       <section className="roles-section" id="roles">
         <div className="roles-inner">
           <div className="roles-header">
-            <div className="roles-eyebrow">4 Roles Utilisateurs</div>
-            <h2 className="roles-title text-balance">Un acces adapte a chaque profil</h2>
+            <div className="roles-eyebrow">{t.roles.eyebrow}</div>
+            <h2 className="roles-title text-balance">{t.roles.title}</h2>
             <p className="roles-desc">
-              Chaque role dispose de permissions specifiques pour une collaboration optimale et securisee.
+              {t.roles.desc}
             </p>
           </div>
 
           <div className="roles-grid">
-            {roles.map((r) => (
-              <div 
-                key={r.role} 
-                className="role-card"
-                style={{ '--card-accent': r.color } as React.CSSProperties}
-              >
+            {t.roles.list.map((r, idx) => {
+              const config = roleConfigs[idx];
+              return (
                 <div 
-                  className="role-icon" 
-                  style={{ 
-                    background: `${r.color}15`,
-                    color: r.color 
-                  }}
+                  key={idx} 
+                  className="role-card"
+                  style={{ '--card-accent': config.color } as React.CSSProperties}
                 >
-                  {r.icon}
+                  <div 
+                    className="role-icon" 
+                    style={{ 
+                      background: `${config.color}15`,
+                      color: config.color 
+                    }}
+                  >
+                    {config.icon}
+                  </div>
+                  <h3 className="role-name">{r.role}</h3>
+                  <ul className="role-list">
+                    {r.responsibilities.map((item, i) => (
+                      <li key={i} className="role-item">
+                        <div 
+                          className="role-check"
+                          style={{ 
+                            background: `${config.color}15`,
+                            color: config.color 
+                          }}
+                        >
+                          <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M2 6l3 3 5-6"/>
+                          </svg>
+                        </div>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="role-name">{r.role}</h3>
-                <ul className="role-list">
-                  {r.responsibilities.map((item, i) => (
-                    <li key={i} className="role-item">
-                      <div 
-                        className="role-check"
-                        style={{ 
-                          background: `${r.color}15`,
-                          color: r.color 
-                        }}
-                      >
-                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M2 6l3 3 5-6"/>
-                        </svg>
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
     </>
   );
-}
+}

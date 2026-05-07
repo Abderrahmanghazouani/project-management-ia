@@ -1,9 +1,40 @@
 "use client";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function AIProcessSection() {
+  const { t } = useLanguage();
+
+  const stepIcons = [
+    (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14,2 14,8 20,8"/>
+      </svg>
+    ),
+    (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      </svg>
+    ),
+    (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polyline points="9,11 12,14 22,4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+    ),
+    (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    )
+  ];
+
   return (
     <>
       <style>{`
+        /* ... keeping styles ... */
         .ai-process-section {
           padding: 140px 24px;
           background: var(--foreground);
@@ -11,7 +42,6 @@ export default function AIProcessSection() {
           overflow: hidden;
         }
         
-        /* Grid pattern */
         .ai-process-section::before {
           content: '';
           position: absolute;
@@ -23,7 +53,6 @@ export default function AIProcessSection() {
           pointer-events: none;
         }
         
-        /* Glow */
         .ai-glow {
           position: absolute;
           top: 50%;
@@ -91,7 +120,6 @@ export default function AIProcessSection() {
           line-height: 1.7;
         }
         
-        /* Process flow */
         .process-flow {
           display: flex;
           align-items: stretch;
@@ -99,7 +127,6 @@ export default function AIProcessSection() {
           position: relative;
         }
         
-        /* Connector line */
         .process-flow::before {
           content: '';
           position: absolute;
@@ -201,7 +228,6 @@ export default function AIProcessSection() {
           line-height: 1.7;
         }
         
-        /* JSON Preview */
         .json-preview {
           margin-top: 80px;
           background: rgba(0,0,0,0.3);
@@ -274,73 +300,27 @@ export default function AIProcessSection() {
               <svg className="gemini-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
               </svg>
-              Module M3 - Gemini API
+              {t.aiProcess.badge}
             </div>
-            <h2 className="ai-process-title text-balance">
-              Analyse <span className="highlight">intelligente</span><br />du cahier des charges
-            </h2>
+            <h2 className="ai-process-title text-balance" dangerouslySetInnerHTML={{ __html: t.aiProcess.title.replace('\n', '<br />') }} />
             <p className="ai-process-desc">
-              Deposez votre CDC, Gemini analyse et genere automatiquement les taches, 
-              estimations, complexite et risques en moins de 30 secondes.
+              {t.aiProcess.desc}
             </p>
           </div>
 
           <div className="process-flow">
-            <div className="process-step">
-              <div className="step-number">1</div>
-              <div className="step-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14,2 14,8 20,8"/>
-                </svg>
+            {t.aiProcess.steps.map((step, idx) => (
+              <div key={idx} className={`process-step ${idx === 1 ? 'active' : ''}`}>
+                <div className="step-number">{step.num}</div>
+                <div className="step-icon">
+                  {stepIcons[idx]}
+                </div>
+                <h3 className="step-title">{step.title}</h3>
+                <p className="step-desc">
+                  {step.desc}
+                </p>
               </div>
-              <h3 className="step-title">Depot du CDC</h3>
-              <p className="step-desc">
-                Le client saisit ou colle le texte de son cahier des charges dans le formulaire integre.
-              </p>
-            </div>
-
-            <div className="process-step active">
-              <div className="step-number">2</div>
-              <div className="step-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-              </div>
-              <h3 className="step-title">Analyse Gemini</h3>
-              <p className="step-desc">
-                L&apos;API Gemini analyse le CDC avec un prompt structure et retourne un JSON structure.
-              </p>
-            </div>
-
-            <div className="process-step">
-              <div className="step-number">3</div>
-              <div className="step-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <polyline points="9,11 12,14 22,4"/>
-                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-                </svg>
-              </div>
-              <h3 className="step-title">Confirmation</h3>
-              <p className="step-desc">
-                Le client valide ou rejette l&apos;estimation. Si rejete, saisie manuelle possible.
-              </p>
-            </div>
-
-            <div className="process-step">
-              <div className="step-number">4</div>
-              <div className="step-icon">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-              </div>
-              <h3 className="step-title">Distribution</h3>
-              <p className="step-desc">
-                Les taches sont automatiquement reparties entre les membres de l&apos;equipe.
-              </p>
-            </div>
+            ))}
           </div>
 
           <div className="json-preview">
@@ -350,20 +330,20 @@ export default function AIProcessSection() {
                 <div className="json-dot" style={{ background: '#F59E0B' }} />
                 <div className="json-dot" style={{ background: '#22C55E' }} />
               </div>
-              <span className="json-title">response.json - Format de reponse Gemini</span>
+              <span className="json-title">{t.aiProcess.jsonTitle}</span>
             </div>
             <div className="json-body">
               <code>
                 <span className="json-bracket">{'{'}</span><br />
                 &nbsp;&nbsp;<span className="json-key">&quot;tasks&quot;</span>: <span className="json-bracket">[</span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;Mise en place authentification JWT&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">3</span> <span className="json-bracket">{'}'}</span>,<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;Creation module gestion projets&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">4</span> <span className="json-bracket">{'}'}</span>,<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;Developpement Board Kanban&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">4</span> <span className="json-bracket">{'}'}</span>,<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;Integration API Gemini&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">3</span> <span className="json-bracket">{'}'}</span><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;{t.aiProcess.jsonTasks?.[0] || 'Mise en place authentification JWT'}&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">3</span> <span className="json-bracket">{'}'}</span>,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;{t.aiProcess.jsonTasks?.[1] || 'Creation module gestion projets'}&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">4</span> <span className="json-bracket">{'}'}</span>,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;{t.aiProcess.jsonTasks?.[2] || 'Developpement Board Kanban'}&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">4</span> <span className="json-bracket">{'}'}</span>,<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span className="json-bracket">{'{'}</span> <span className="json-key">&quot;title&quot;</span>: <span className="json-string">&quot;{t.aiProcess.jsonTasks?.[3] || 'Integration API Gemini'}&quot;</span>, <span className="json-key">&quot;estimated_days&quot;</span>: <span className="json-number">3</span> <span className="json-bracket">{'}'}</span><br />
                 &nbsp;&nbsp;<span className="json-bracket">]</span>,<br />
                 &nbsp;&nbsp;<span className="json-key">&quot;total_days&quot;</span>: <span className="json-number">14</span>,<br />
-                &nbsp;&nbsp;<span className="json-key">&quot;complexity&quot;</span>: <span className="json-string">&quot;Moyenne&quot;</span>,<br />
-                &nbsp;&nbsp;<span className="json-key">&quot;risks&quot;</span>: <span className="json-bracket">[</span><span className="json-string">&quot;Dependance API Gemini&quot;</span>, <span className="json-string">&quot;Delai serre equipe 3 personnes&quot;</span><span className="json-bracket">]</span><br />
+                &nbsp;&nbsp;<span className="json-key">&quot;complexity&quot;</span>: <span className="json-string">&quot;{t.aiProcess.jsonComplexity || 'Moyenne'}&quot;</span>,<br />
+                &nbsp;&nbsp;<span className="json-key">&quot;risks&quot;</span>: <span className="json-bracket">[</span><span className="json-string">&quot;{t.aiProcess.jsonRisks?.[0] || 'Dependance API Gemini'}&quot;</span>, <span className="json-string">&quot;{t.aiProcess.jsonRisks?.[1] || 'Delai serre equipe 3 personnes'}&quot;</span><span className="json-bracket">]</span><br />
                 <span className="json-bracket">{'}'}</span>
               </code>
             </div>
@@ -372,4 +352,4 @@ export default function AIProcessSection() {
       </section>
     </>
   );
-}
+}
